@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Order Processing System</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛒 E-commerce Order Processing System</h1>
+            <p>Create, manage, and track your orders</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab('create')">Create Order</button>
+            <button class="tab-button" onclick="showTab('list')">View Orders</button>
+            <button class="tab-button" onclick="showTab('search')">Search Order</button>
+        </div>
+
+        <!-- Create Order Tab -->
+        <div id="create-tab" class="tab-content active">
+            <div class="card">
+                <h2>📝 Create New Order</h2>
+                <form id="create-order-form">
+                    <div class="form-group">
+                        <label for="customer-id">Customer ID:</label>
+                        <input type="text" id="customer-id" placeholder="e.g., customer_123" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Order Items:</label>
+                        <div id="items-container">
+                            <div class="item-row">
+                                <input type="text" placeholder="Product ID" class="product-id" required>
+                                <input type="number" placeholder="Quantity" class="quantity" min="1" required>
+                                <input type="number" placeholder="Unit Price" class="unit-price" step="0.01" min="0.01" required>
+                                <button type="button" class="remove-item" onclick="removeItem(this)">❌</button>
+                            </div>
+                        </div>
+                        <button type="button" id="add-item" onclick="addItem()">➕ Add Item</button>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">🚀 Create Order</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- List Orders Tab -->
+        <div id="list-tab" class="tab-content">
+            <div class="card">
+                <h2>📋 All Orders</h2>
+                <div class="filters">
+                    <select id="status-filter">
+                        <option value="">All Statuses</option>
+                        <option value="PENDING">PENDING</option>
+                        <option value="PROCESSING">PROCESSING</option>
+                        <option value="SHIPPED">SHIPPED</option>
+                        <option value="DELIVERED">DELIVERED</option>
+                        <option value="CANCELLED">CANCELLED</option>
+                    </select>
+                    <button onclick="loadOrders()" class="btn-secondary">🔄 Refresh</button>
+                </div>
+                <div id="orders-list"></div>
+            </div>
+        </div>
+
+        <!-- Search Order Tab -->
+        <div id="search-tab" class="tab-content">
+            <div class="card">
+                <h2>🔍 Search Order</h2>
+                <div class="form-group">
+                    <label for="search-id">Order ID:</label>
+                    <input type="text" id="search-id" placeholder="Enter order ID">
+                    <button onclick="searchOrder()" class="btn-secondary">🔍 Search</button>
+                </div>
+                <div id="search-result"></div>
+            </div>
+        </div>
+
+        <!-- Status Messages -->
+        <div id="message" class="message"></div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
